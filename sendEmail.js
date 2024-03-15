@@ -1,20 +1,23 @@
 // import nodemailer first
 const nodemailer = require('nodemailer');
 
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 async function sendEmail(){
 
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-            user: email_for_send_notification,
-            pass: app_password_of_the_email // create the app password ( go to settings do 2FA and create app password (16 char long))
+            user: process.env.GMAIL_EMAIL,
+            pass: process.env.GMAIL_PASS // create the app password ( go to settings do 2FA and create app password (16 char long))
         }
     });
 
     const mailOption = {
         from: senders_email,
-        to: recipient_email, // you can use [] array for sending email to multiple recipients
+        to: process.env.RECIPIENT_EMAILS, // you can use [] array for sending email to multiple recipients
         subject: what_is_subject_of_mail,
         text: what_is_the_message
     }
